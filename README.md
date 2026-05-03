@@ -13,7 +13,7 @@
 
 This repository is intentionally separate from audit workspaces, internal research branches, and unreleased experiments. It is the public-facing protocol codebase for the live ParagonChain stack.
 
-[Protocol Surface](#protocol-surface) • [Architecture](#architecture-at-a-glance) • [Getting Started](#getting-started) • [Module Docs](#module-documentation) • [Security](#security-and-release-posture)
+[Protocol Surface](#protocol-surface) • [Live Contracts](#live-contracts-and-deployments) • [Architecture](#architecture-at-a-glance) • [Getting Started](#getting-started) • [Module Docs](#module-documentation) • [Security](#security-and-release-posture)
 
 </div>
 
@@ -40,6 +40,25 @@ It is built around five principles:
 | [`treasury/`](./contracts/treasury) | Treasury-facing reward routing, custody-adjacent distribution, and controlled protocol value flows. | Keeps treasury operations explicit, reviewable, and separate from user-facing logic. |
 | [`XpgnToken/`](./contracts/XpgnToken) | Shared protocol token infrastructure. | Supports both liquidity and governance layers across the stack. |
 | [`mocks/`](./contracts/mocks) | Test-only mocks and local verification helpers. | Makes local development faster without mixing non-production contracts into core modules. |
+
+## Live Contracts And Deployments
+
+Clear deployment visibility is part of a professional protocol repository. This repo is intended to show not only the source code, but also the approved live contract surface for users, integrators, and reviewers.
+
+Use the deployment registry in [`deployments/`](./deployments) to publish:
+
+- canonical mainnet contract addresses
+- deployment status by module
+- verification links when available
+- the contract name that maps to each live address
+- notes about whether a contract is active, legacy, paused, or pending migration
+
+Current registry files:
+
+- [Deployments Overview](./deployments/README.md)
+- [Mainnet Registry](./deployments/MAINNET.md)
+
+If a contract is live, it should be discoverable here through a clean published address registry rather than requiring users to search through scripts or announcements.
 
 ## Why The Repo Is Structured This Way
 
@@ -81,7 +100,7 @@ contracts/
 scripts/        deployment, ops, and verification scripts
 test/           local and focused regression coverage
 docs/           repo scope, architecture, security, and workflow notes
-deployments/    approved deployment outputs for this repository
+deployments/    approved deployment outputs and live contract registries
 ```
 
 ## Getting Started

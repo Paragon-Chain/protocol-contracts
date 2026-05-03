@@ -15,17 +15,6 @@ require("@nomicfoundation/hardhat-verify");
 require("solidity-coverage");
 require("hardhat-abi-exporter");
 
-const tasksDir = path.join(__dirname, "scripts", "tasks");
-
-for (const f of ["flash.js", "flash-entertainer.js"]) {
-  const p = path.join(tasksDir, f);
-  if (fs.existsSync(p)) {
-    require(p);
-  } else {
-    console.warn(`Optional task not found: ${p}`);
-  }
-}
-
 const {
   BSC_MAINNET_RPC_URL,
   BSC_TESTNET_RPC_URL,

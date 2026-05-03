@@ -97,7 +97,6 @@ contracts/
   treasury/     treasury distribution and reward routing components
   XpgnToken/    protocol token contracts
   mocks/        local test-only support contracts
-scripts/        deployment, ops, and verification scripts
 test/           local and focused regression coverage
 docs/           repo scope, architecture, security, and workflow notes
 deployments/    approved deployment outputs and live contract registries
@@ -180,7 +179,6 @@ Each protocol domain has its own README so the repository stays understandable a
 - [Treasury Module](./contracts/treasury/README.md)
 - [XPGN Token Module](./contracts/XpgnToken/README.md)
 - [Mocks And Test Utilities](./contracts/mocks/README.md)
-- [Scripts Guide](./scripts/README.md)
 - [Testing Guide](./test/README.md)
 
 ## Intended Audience
@@ -198,7 +196,6 @@ This repository is designed for:
 This repository should contain:
 
 - approved live or near-live protocol contracts
-- safe-to-publish support scripts
 - safe-to-publish deployment artifacts
 - documentation required to understand the released surface
 
@@ -209,6 +206,7 @@ This repository should not contain:
 - unreleased strategy contracts
 - experimental product concepts
 - secrets or private operational data
+- deployment or operational scripts that are not meant for public release
 
 ## Licensing
 

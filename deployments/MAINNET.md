@@ -4,62 +4,52 @@ This file is the canonical public registry for **approved mainnet ParagonChain c
 
 Use it to publish the verified live addresses that users, integrators, and reviewers should rely on.
 
-## How To Use This Registry
+## Network
 
-For each contract family:
-
-- list the canonical contract name
-- list the deployed address
-- list the module it belongs to
-- mark the status clearly
-- add verification or explorer links when available
-- note whether a contract is current, legacy, paused, replaced, or pending migration
+- **Primary network:** BNB Smart Chain Mainnet
+- **Status:** Active published deployment set
 
 ## Exchange
 
 | Contract | Address | Status | Notes |
 | --- | --- | --- | --- |
-| Factory | `TBD` | Pending publication | Add canonical live factory address |
-| Router | `TBD` | Pending publication | Add canonical live router address |
-| Oracle | `TBD` | Pending publication | Add live oracle address if public |
+| ParagonFactory | `0x620532B3b0924b8F1159406EaAeF9bC40C7a4dcB` | Active | Canonical exchange factory |
+| ParagonRouterAdmin | `0xFA0a83B7b1228498138c6886911699C86E5dB9BC` | Active | Router admin control surface |
+| ParagonRouter | `0x67099552a0DA05581c87fdFBf440dfD00aBAf42C` | Active | Canonical exchange router |
+| ParagonRouterGuard | `0xcfA053e89ffd1722684a6da260470B215Cc0bD3F` | Active | Router policy and guardrail layer |
+| ParagonZapV2 | `0x1C86195BdB6bb5093a71872142d2070275502627` | Active | Liquidity helper and zap surface |
 
 ## Payflow
 
 | Contract | Address | Status | Notes |
 | --- | --- | --- | --- |
-| Payflow Executor | `TBD` | Pending publication | Add approved live executor address |
-| Rebates Router | `TBD` | Pending publication | Add if publicly deployed |
+| ParagonBestExecutionV14 | `0xe90C4603c77F81cD532d5DE6060925aa5653d7b2` | Active | Best execution and routing layer |
+| LPFlowRebates | `0x492390DdAF86c7492204F0403908c7013cD8EDAd` | Active | Rebate distribution component |
+| ParagonPayflowExecutorV2 | `0x467Fe2D7E620A7842cbc1305fa932ce73E0F8dA7` | Active | Canonical payflow executor |
 
-## DAO
-
-| Contract | Address | Status | Notes |
-| --- | --- | --- | --- |
-| Voting Escrow | `TBD` | Pending publication | Add live governance contract |
-| Gauge / Emissions | `TBD` | Pending publication | Split into separate rows if needed |
-| Fee Distributor | `TBD` | Pending publication | Add canonical distribution address |
-
-## Agents
+## DAO And Incentives
 
 | Contract | Address | Status | Notes |
 | --- | --- | --- | --- |
-| Agent Registry | `TBD` | Pending publication | Add live registry address when public |
-| Agent Executor | `TBD` | Pending publication | Add approved executor address |
-| Agent Market | `TBD` | Pending publication | Add if publicly live |
+| ParagonFarmController | `0x54D6f77Cf2F03508a56a40c182a3a5FB403Dd7C2` | Active | Pool `0` created for XPGN; emissions paused; guardian granted |
 
-## Treasury
+## Treasury And Vesting
 
 | Contract | Address | Status | Notes |
 | --- | --- | --- | --- |
-| Treasury Distributor | `TBD` | Pending publication | Add approved treasury routing contract |
+| TreasurySplitter | `0x55539349F07F9d680517aA01dec8db99fcce915A` | Active | Treasury distribution splitter |
+| RewardDripperEscrow | `0x4DC07BB6cd804341D0B22Ac9c5087D81844eC827` | Active | Deployed with dripper rate set to `0` at publication time |
+| TeamVesting | `0xc15Ec7880cf3b238e37c7f1f6cBEB2caa580AEa1` | Active | Vesting initialized; ownership retained by deployer |
+| AdvisorVesting | `0xAC609E8D3eB7142482460cd7FFCEB588B0846392` | Active | Vesting initialized; ownership retained by deployer |
 
 ## Shared Infrastructure
 
 | Contract | Address | Status | Notes |
 | --- | --- | --- | --- |
-| XPGN Token | `TBD` | Pending publication | Add canonical token address |
+| XPGN | `0x130A2eB49C8143EfA4547a10EbEA48BCf10a729A` | Active | Canonical protocol token |
 
 ## Release Notes
 
 | Date | Network | Summary |
 | --- | --- | --- |
-| `TBD` | Mainnet | First public deployment registry publication |
+| `2026-05-03` | BNB Smart Chain Mainnet | First published public mainnet registry for approved ParagonChain live contracts |

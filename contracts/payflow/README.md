@@ -40,7 +40,7 @@ Payflow exists so ParagonChain can support:
 | [`ParagonBestExecutionv14.sol`](./ParagonBestExecutionv14.sol) | Intent verification and nonce consumption layer | Authorizes valid signed user intents and approved executors. |
 | [`ParagonPayflowExecutorv2.sol`](./ParagonPayflowExecutorv2.sol) | Main execution and settlement engine | Executes the swap, calculates surplus, and distributes value. |
 | [`LPFlowRebates.sol`](./LPFlowRebates.sol) | LP reward sink and accounting layer | Tracks route-linked LP reward attribution and user claims. |
-| [`TreasurySplitter.sol`](./TreasurySplitter.sol) | Treasury routing and downstream split layer | Splits protocol-side balances across treasury destinations. |
+| [`TreasurySplitter.sol`](./TreasurySplitter.sol) | Treasury routing and downstream split layer | Splits treasury-side balances across downstream sinks after protocol funds have already been collected. |
 | [`ChainlinkUsdValuer.sol`](./ChainlinkUsdValuer.sol) | USD valuation helper | Supports accounting, volume, and saved-value measurements. |
 | [`ParagonLockerCollector.sol`](./ParagonLockerCollector.sol) | Locker-side value collector | Receives locker-directed value from Payflow routes. |
 
@@ -82,7 +82,7 @@ flowchart LR
 
 The executor is designed so surplus becomes a programmable value stream instead of disappearing into opaque execution spread.
 
-### Default surplus model
+### Live baseline surplus model
 
 Inside [`ParagonPayflowExecutorv2.sol`](./ParagonPayflowExecutorv2.sol):
 
@@ -91,6 +91,34 @@ Inside [`ParagonPayflowExecutorv2.sol`](./ParagonPayflowExecutorv2.sol):
 - the remaining **10%** becomes the locker share by default
 - `protocolFeeBips` can take an additional protocol cut from gross surplus before the trader/LP/locker split
 - `relayerFeeBips` is capped at **10 bps** and is only paid when a relayer is actually involved
+
+### Current update-track surplus model
+
+In the active update-track executors such as [`ParagonPayflowExecutorUpdate.sol`](./ParagonPayflowExecutorUpdate.sol), [`ParagonPayflowExecutorV2Update.sol`](./ParagonPayflowExecutorV2Update.sol), and [`ParagonSplitRouterUpdate.sol`](./ParagonSplitRouterUpdate.sol), the default split model is different.
+
+Default update-track configuration:
+
+- `traderBips = 6000`: **60%** trader share
+- `lpBips = 1000`: **10%** LP rebate share
+- `solverBips = 2000`: **20%** solver / relayer share
+- remaining **10%** becomes the locker share
+
+That means the update-track default is:
+
+- **60 / 10 / 20 / 10** across trader / LP / solver / locker
+
+But there is one important runtime behavior:
+
+- if the solver share is not paid out to an active solver or relayer, that **20%** falls back into the treasury-side path
+
+So in practical reporting, the same update-track flow can also present as:
+
+- **60 / 10 / 10 / 20** across trader / LP / locker / treasury
+
+Both statements describe the same update-track design from different viewpoints:
+
+- **execution-time view:** `60 / 10 / 20 / 10`
+- **post-fallback treasury view:** `60 / 10 / 10 / 20`
 
 ### Value routing diagram
 
@@ -102,24 +130,30 @@ flowchart TD
     C --> E["Trader Share"]
     C --> F["LP Share"]
     C --> G["Locker Share"]
-    C --> H["Relayer Fee If Active"]
+    C --> H["Solver / Relayer Share If Active"]
     F --> I["LPFlowRebates"]
     G --> J["Locker Vault / Collector"]
-    D --> K["TreasurySplitter"]
-    K --> L["60% Sink"]
-    K --> M["35% Sink"]
-    K --> N["5% Sink"]
+    H --> K["Active Solver / Relayer"]
+    H --> D
+    D --> Z["TreasurySplitter Or Treasury Sink"]
 ```
 
 ### Treasury-side routing
 
-[`TreasurySplitter.sol`](./TreasurySplitter.sol) is the secondary routing layer once protocol-side balances land in the treasury path.
+[`TreasurySplitter.sol`](./TreasurySplitter.sol) is a **separate downstream treasury routing layer**. It does not define the main Payflow surplus split itself.
 
-Its documented default split is:
+Instead, once protocol-side balances have already landed in the treasury path, `TreasurySplitter` can distribute them onward.
+
+Its documented sink split is:
 
 - `60%` to the primary locker or revenue sink
 - `35%` to DAO treasury
 - `5%` to a backstop or fallback sink
+
+So there are two different split layers in this module:
+
+- **Payflow surplus split** inside the executor
+- **treasury sink split** inside `TreasurySplitter`
 
 ## Security Model
 

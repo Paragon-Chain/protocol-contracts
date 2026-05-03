@@ -2,7 +2,9 @@
 
 <div align="center">
 
-![License](https://img.shields.io/badge/license-BUSL--1.1-111827.svg?style=for-the-badge)
+![ParagonChain Header](./Header.png)
+
+![Licensing](https://img.shields.io/badge/licensing-module--specific-111827.svg?style=for-the-badge)
 ![Solidity](https://img.shields.io/badge/solidity-0.8.25-1f2937.svg?style=for-the-badge&logo=solidity)
 ![Hardhat](https://img.shields.io/badge/hardhat-workspace-fbbf24.svg?style=for-the-badge&logo=ethereum)
 ![Status](https://img.shields.io/badge/status-active%20protocol%20repo-0f766e.svg?style=for-the-badge)
@@ -10,6 +12,8 @@
 **The source-of-truth contracts repository for ParagonChain protocol systems approved for the organization workspace.**
 
 This repository is intentionally separate from audit workspaces, internal research branches, and unreleased experiments. It is the public-facing protocol codebase for the live ParagonChain stack.
+
+[Protocol Surface](#protocol-surface) • [Architecture](#architecture-at-a-glance) • [Getting Started](#getting-started) • [Module Docs](#module-documentation) • [Security](#security-and-release-posture)
 
 </div>
 
@@ -187,6 +191,10 @@ This repository should not contain:
 - experimental product concepts
 - secrets or private operational data
 
-## License
+## Licensing
 
-This repository is released under **BUSL-1.1** unless stated otherwise in a specific file.
+Licensing in this repository is **module-specific**, not repository-wide.
+
+- `payflow` contracts may use `BUSL-1.1` where specified.
+- Other modules may use different licenses as declared in their source files.
+- Always treat the SPDX identifier in each contract file as the authoritative license reference.

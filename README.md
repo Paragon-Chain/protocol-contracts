@@ -13,7 +13,7 @@
 
 This repository is intentionally separate from audit workspaces, internal research branches, and unreleased experiments. It is the public-facing protocol codebase for the live ParagonChain stack.
 
-[Protocol Surface](#protocol-surface) • [Live Contracts](#live-contracts-and-deployments) • [Architecture](#architecture-at-a-glance) • [Getting Started](#getting-started) • [Module Docs](#module-documentation) • [Security](#security-and-release-posture)
+[Protocol Surface](#protocol-surface) â€¢ [Live Contracts](#live-contracts-and-deployments) â€¢ [Architecture](#architecture-at-a-glance) â€¢ [Getting Started](#getting-started) â€¢ [Module Docs](#module-documentation) â€¢ [Security](#security-and-release-posture)
 
 </div>
 
@@ -41,7 +41,7 @@ It is built around five principles:
 | [`XpgnToken/`](./contracts/XpgnToken) | Shared protocol token infrastructure. | Supports both liquidity and governance layers across the stack. |
 | [`mocks/`](./contracts/mocks) | Test-only mocks and local verification helpers. | Makes local development faster without mixing non-production contracts into core modules. |
 
-## Live Contracts And Deployments
+## Live Contracts And Deployments BNB Chain
 
 Clear deployment visibility is part of a professional protocol repository. This repo is intended to show not only the source code, but also the approved live contract surface for users, integrators, and reviewers.
 
